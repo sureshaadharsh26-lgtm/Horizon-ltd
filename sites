@@ -1,0 +1,275 @@
+import { useState } from "react";
+
+const categories = {
+  Women: ["Sarees", "Salwar Suits", "Kurtis", "Lehengas", "Tops & Skirts"],
+  Men: ["Shirts", "Trousers", "Ethnic Wear", "T-Shirts", "Jeans"],
+  Kids: ["Frocks", "Boys Shirts", "Ethnic Kids", "Casuals", "School Wear"],
+};
+
+// Placeholder products — you can replace name, price, and image later
+const products = {
+  Women: {
+    "Sarees": [
+      { id: 1, name: "Silk Saree", price: "₹1,299", color: "#F9A8D4", emoji: "👘" },
+      { id: 2, name: "Cotton Saree", price: "₹899", color: "#FCA5A5", emoji: "👘" },
+      { id: 3, name: "Bridal Saree", price: "₹3,499", color: "#C4B5FD", emoji: "👘" },
+      { id: 4, name: "Party Saree", price: "₹1,799", color: "#FCD34D", emoji: "👘" },
+    ],
+    "Salwar Suits": [
+      { id: 5, name: "Cotton Suit", price: "₹799", color: "#6EE7B7", emoji: "👗" },
+      { id: 6, name: "Embroidery Suit", price: "₹1,499", color: "#93C5FD", emoji: "👗" },
+      { id: 7, name: "Designer Suit", price: "₹2,199", color: "#F9A8D4", emoji: "👗" },
+      { id: 8, name: "Casual Suit", price: "₹599", color: "#FDE68A", emoji: "👗" },
+    ],
+    "Kurtis": [
+      { id: 9, name: "Printed Kurti", price: "₹499", color: "#FCA5A5", emoji: "👚" },
+      { id: 10, name: "Long Kurti", price: "₹699", color: "#A5F3FC", emoji: "👚" },
+      { id: 11, name: "Festive Kurti", price: "₹999", color: "#DDD6FE", emoji: "👚" },
+      { id: 12, name: "Office Kurti", price: "₹799", color: "#BBF7D0", emoji: "👚" },
+    ],
+    "Lehengas": [
+      { id: 13, name: "Bridal Lehenga", price: "₹5,999", color: "#FCA5A5", emoji: "👗" },
+      { id: 14, name: "Party Lehenga", price: "₹2,999", color: "#C4B5FD", emoji: "👗" },
+      { id: 15, name: "Kids Lehenga", price: "₹1,299", color: "#FCD34D", emoji: "👗" },
+      { id: 16, name: "Casual Lehenga", price: "₹1,599", color: "#6EE7B7", emoji: "👗" },
+    ],
+    "Tops & Skirts": [
+      { id: 17, name: "Floral Top", price: "₹399", color: "#FDE68A", emoji: "👕" },
+      { id: 18, name: "A-Line Skirt", price: "₹599", color: "#F9A8D4", emoji: "🩱" },
+      { id: 19, name: "Crop Top", price: "₹449", color: "#93C5FD", emoji: "👕" },
+      { id: 20, name: "Maxi Skirt", price: "₹699", color: "#BBF7D0", emoji: "🩱" },
+    ],
+  },
+  Men: {
+    "Shirts": [
+      { id: 21, name: "Formal Shirt", price: "₹699", color: "#93C5FD", emoji: "👔" },
+      { id: 22, name: "Casual Shirt", price: "₹499", color: "#6EE7B7", emoji: "👔" },
+      { id: 23, name: "Check Shirt", price: "₹599", color: "#FCA5A5", emoji: "👔" },
+      { id: 24, name: "Linen Shirt", price: "₹799", color: "#FDE68A", emoji: "👔" },
+    ],
+    "Trousers": [
+      { id: 25, name: "Formal Trousers", price: "₹899", color: "#C4B5FD", emoji: "👖" },
+      { id: 26, name: "Chinos", price: "₹799", color: "#FCD34D", emoji: "👖" },
+      { id: 27, name: "Cotton Trousers", price: "₹699", color: "#A5F3FC", emoji: "👖" },
+      { id: 28, name: "Slim Fit", price: "₹999", color: "#BBF7D0", emoji: "👖" },
+    ],
+    "Ethnic Wear": [
+      { id: 29, name: "Kurta Pyjama", price: "₹1,299", color: "#FCA5A5", emoji: "🥻" },
+      { id: 30, name: "Sherwani", price: "₹4,999", color: "#FDE68A", emoji: "🥻" },
+      { id: 31, name: "Dhoti Kurta", price: "₹999", color: "#DDD6FE", emoji: "🥻" },
+      { id: 32, name: "Nehru Jacket", price: "₹1,499", color: "#6EE7B7", emoji: "🥻" },
+    ],
+    "T-Shirts": [
+      { id: 33, name: "Round Neck Tee", price: "₹299", color: "#93C5FD", emoji: "👕" },
+      { id: 34, name: "Polo T-Shirt", price: "₹499", color: "#FCA5A5", emoji: "👕" },
+      { id: 35, name: "Graphic Tee", price: "₹399", color: "#FCD34D", emoji: "👕" },
+      { id: 36, name: "V-Neck Tee", price: "₹349", color: "#BBF7D0", emoji: "👕" },
+    ],
+    "Jeans": [
+      { id: 37, name: "Slim Jeans", price: "₹999", color: "#93C5FD", emoji: "👖" },
+      { id: 38, name: "Regular Jeans", price: "₹899", color: "#A5F3FC", emoji: "👖" },
+      { id: 39, name: "Skinny Jeans", price: "₹1,099", color: "#C4B5FD", emoji: "👖" },
+      { id: 40, name: "Cargo Jeans", price: "₹1,199", color: "#FDE68A", emoji: "👖" },
+    ],
+  },
+  Kids: {
+    "Frocks": [
+      { id: 41, name: "Party Frock", price: "₹599", color: "#F9A8D4", emoji: "👗" },
+      { id: 42, name: "Cotton Frock", price: "₹399", color: "#FDE68A", emoji: "👗" },
+      { id: 43, name: "Printed Frock", price: "₹449", color: "#A5F3FC", emoji: "👗" },
+      { id: 44, name: "Festive Frock", price: "₹799", color: "#DDD6FE", emoji: "👗" },
+    ],
+    "Boys Shirts": [
+      { id: 45, name: "Check Shirt", price: "₹349", color: "#93C5FD", emoji: "👔" },
+      { id: 46, name: "Casual Shirt", price: "₹299", color: "#BBF7D0", emoji: "👔" },
+      { id: 47, name: "Formal Shirt", price: "₹449", color: "#FCA5A5", emoji: "👔" },
+      { id: 48, name: "Polo Shirt", price: "₹399", color: "#FCD34D", emoji: "👔" },
+    ],
+    "Ethnic Kids": [
+      { id: 49, name: "Kids Kurta", price: "₹499", color: "#FCA5A5", emoji: "🥻" },
+      { id: 50, name: "Lehenga Set", price: "₹799", color: "#DDD6FE", emoji: "👗" },
+      { id: 51, name: "Sherwani Set", price: "₹999", color: "#FDE68A", emoji: "🥻" },
+      { id: 52, name: "Dhoti Set", price: "₹599", color: "#6EE7B7", emoji: "🥻" },
+    ],
+    "Casuals": [
+      { id: 53, name: "Kids Tee", price: "₹249", color: "#93C5FD", emoji: "👕" },
+      { id: 54, name: "Kids Jeans", price: "₹499", color: "#A5F3FC", emoji: "👖" },
+      { id: 55, name: "Shorts", price: "₹299", color: "#FCD34D", emoji: "🩳" },
+      { id: 56, name: "Track Suit", price: "₹699", color: "#BBF7D0", emoji: "🩱" },
+    ],
+    "School Wear": [
+      { id: 57, name: "School Shirt", price: "₹299", color: "#E5E7EB", emoji: "👔" },
+      { id: 58, name: "School Pants", price: "₹349", color: "#D1D5DB", emoji: "👖" },
+      { id: 59, name: "School Skirt", price: "₹299", color: "#F3F4F6", emoji: "🩱" },
+      { id: 60, name: "School Uniform Set", price: "₹549", color: "#E5E7EB", emoji: "🎒" },
+    ],
+  },
+};
+
+export default function BalamurugansStore() {
+  const [step, setStep] = useState("gender"); // gender | category | products
+  const [gender, setGender] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [modal, setModal] = useState(null);
+
+  const genderOptions = [
+    { label: "Women", emoji: "👩", color: "#FDF2F8", border: "#F9A8D4", text: "#BE185D" },
+    { label: "Men", emoji: "👨", color: "#EFF6FF", border: "#93C5FD", text: "#1D4ED8" },
+    { label: "Kids", emoji: "🧒", color: "#F0FDF4", border: "#6EE7B7", text: "#065F46" },
+  ];
+
+  function selectGender(g) {
+    setGender(g);
+    setCategory(null);
+    setStep("category");
+  }
+
+  function selectCategory(c) {
+    setCategory(c);
+    setStep("products");
+  }
+
+  function goBack() {
+    if (step === "products") setStep("category");
+    else if (step === "category") setStep("gender");
+  }
+
+  const currentProducts = gender && category ? products[gender][category] || [] : [];
+
+  return (
+    <div style={{ minHeight: "100vh", background: "#FDF8F5", fontFamily: "'Segoe UI', sans-serif" }}>
+
+      {/* Header */}
+      <div style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div>
+          <div style={{ fontSize: 11, color: "#F9A8D4", letterSpacing: 3, textTransform: "uppercase", fontWeight: 700 }}>Est. 2024</div>
+          <div style={{ fontSize: 24, fontWeight: 900, color: "white", letterSpacing: 1 }}>Balamurugan's</div>
+          <div style={{ fontSize: 11, color: "#C4B5FD", letterSpacing: 2, textTransform: "uppercase" }}>Fashion Store</div>
+        </div>
+        <div style={{ fontSize: 36 }}>🛍️</div>
+      </div>
+
+      {/* Breadcrumb */}
+      {step !== "gender" && (
+        <div style={{ padding: "12px 20px", display: "flex", alignItems: "center", gap: 8, background: "white", borderBottom: "1px solid #F3F4F6" }}>
+          <button onClick={goBack} style={{ background: "none", border: "none", color: "#9333EA", fontWeight: 700, fontSize: 14, cursor: "pointer", padding: 0 }}>← Back</button>
+          <span style={{ color: "#D1D5DB" }}>|</span>
+          <span style={{ fontSize: 13, color: "#6B7280" }}>
+            {gender}{category ? ` › ${category}` : ""}
+          </span>
+        </div>
+      )}
+
+      <div style={{ padding: "24px 20px", maxWidth: 640, margin: "0 auto" }}>
+
+        {/* STEP 1: Gender */}
+        {step === "gender" && (
+          <div>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "#1a1a2e", marginBottom: 4 }}>Welcome! 🙏</h2>
+            <p style={{ color: "#6B7280", fontSize: 15, marginBottom: 24 }}>Please tell us who you're shopping for</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {genderOptions.map((g) => (
+                <button key={g.label} onClick={() => selectGender(g.label)}
+                  style={{ background: g.color, border: `2px solid ${g.border}`, borderRadius: 16, padding: "18px 22px", display: "flex", alignItems: "center", gap: 16, cursor: "pointer", transition: "transform 0.15s" }}
+                  onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+                  onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
+                >
+                  <span style={{ fontSize: 36 }}>{g.emoji}</span>
+                  <div style={{ textAlign: "left" }}>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: g.text }}>{g.label}</div>
+                    <div style={{ fontSize: 13, color: "#6B7280" }}>{categories[g.label].length} categories available</div>
+                  </div>
+                  <span style={{ marginLeft: "auto", color: g.text, fontSize: 20 }}>›</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 2: Category */}
+        {step === "category" && gender && (
+          <div>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "#1a1a2e", marginBottom: 4 }}>What would you like to see?</h2>
+            <p style={{ color: "#6B7280", fontSize: 15, marginBottom: 24 }}>Choose a category from our {gender}'s collection</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              {categories[gender].map((cat, i) => {
+                const colors = ["#FDF2F8", "#EFF6FF", "#F0FDF4", "#FFFBEB", "#FAF5FF"];
+                const borders = ["#F9A8D4", "#93C5FD", "#6EE7B7", "#FCD34D", "#C4B5FD"];
+                const emojis = ["✨", "👗", "💫", "🌟", "💎"];
+                return (
+                  <button key={cat} onClick={() => selectCategory(cat)}
+                    style={{ background: colors[i % colors.length], border: `2px solid ${borders[i % borders.length]}`, borderRadius: 14, padding: "20px 14px", cursor: "pointer", textAlign: "center", transition: "transform 0.15s" }}
+                    onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}
+                    onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+                  >
+                    <div style={{ fontSize: 28, marginBottom: 8 }}>{emojis[i % emojis.length]}</div>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: "#1a1a2e" }}>{cat}</div>
+                    <div style={{ fontSize: 12, color: "#9CA3AF", marginTop: 4 }}>4 items</div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 3: Products */}
+        {step === "products" && (
+          <div>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "#1a1a2e", marginBottom: 4 }}>{category}</h2>
+            <p style={{ color: "#6B7280", fontSize: 14, marginBottom: 20 }}>Tap any item to see details & price</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              {currentProducts.map((item) => (
+                <button key={item.id} onClick={() => setModal(item)}
+                  style={{ background: "white", border: "none", borderRadius: 16, overflow: "hidden", cursor: "pointer", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", transition: "transform 0.15s, box-shadow 0.15s", textAlign: "left", padding: 0 }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.14)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.08)"; }}
+                >
+                  {/* Image placeholder */}
+                  <div style={{ background: item.color, height: 140, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 6 }}>
+                    <span style={{ fontSize: 48 }}>{item.emoji}</span>
+                    <span style={{ fontSize: 10, color: "rgba(0,0,0,0.3)", fontWeight: 600, letterSpacing: 1 }}>TAP TO VIEW</span>
+                  </div>
+                  <div style={{ padding: "12px 14px" }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{item.name}</div>
+                    <div style={{ fontSize: 16, fontWeight: 900, color: "#9333EA", marginTop: 4 }}>{item.price}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Modal — tap to zoom */}
+      {modal && (
+        <div onClick={() => setModal(null)}
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, padding: 20 }}>
+          <div onClick={e => e.stopPropagation()}
+            style={{ background: "white", borderRadius: 24, width: "100%", maxWidth: 360, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.3)" }}>
+            {/* Big image area */}
+            <div style={{ background: modal.color, height: 260, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: 100 }}>{modal.emoji}</span>
+            </div>
+            <div style={{ padding: "24px 24px 28px" }}>
+              <div style={{ fontSize: 11, color: "#9CA3AF", fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 6 }}>{gender} · {category}</div>
+              <div style={{ fontSize: 22, fontWeight: 900, color: "#1a1a2e", marginBottom: 8 }}>{modal.name}</div>
+              <div style={{ fontSize: 28, fontWeight: 900, color: "#9333EA", marginBottom: 20 }}>{modal.price}</div>
+              <div style={{ background: "#F3F4F6", borderRadius: 10, padding: "12px 14px", fontSize: 13, color: "#6B7280", marginBottom: 20 }}>
+                📦 Add your product description here — fabric, size, colour options, etc.
+              </div>
+              <div style={{ display: "flex", gap: 10 }}>
+                <button style={{ flex: 1, background: "linear-gradient(135deg, #9333EA, #EC4899)", color: "white", border: "none", borderRadius: 12, padding: "14px", fontSize: 15, fontWeight: 800, cursor: "pointer" }}>
+                  🛒 Add to Cart
+                </button>
+                <button onClick={() => setModal(null)}
+                  style={{ background: "#F3F4F6", color: "#6B7280", border: "none", borderRadius: 12, padding: "14px 16px", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
+                  ✕
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
