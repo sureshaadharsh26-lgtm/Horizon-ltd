@@ -1,0 +1,37 @@
+Build me a real, fully functional website for a business and entrepreneurship blog called "Business Horizon."
+Tech requirements (important):
+Use plain HTML, CSS, and vanilla JavaScript (no React, no Node build process) — OR if using React, set it up as a static Vite build that compiles to plain HTML/CSS/JS so it runs directly on Replit without a server.
+Use Tailwind CSS via CDN (not a build step) so it works instantly on Replit.
+All animations should use CSS transitions/keyframes or lightweight vanilla JS — no Framer Motion dependency.
+Site must be a multi-page static site (separate .html files: index.html, articles.html, categories.html, about.html, contact.html) linked together with a shared navbar/footer — OR a single-page app with JS-based routing if you prefer one file.
+Must run correctly when deployed on Replit's static hosting with zero extra configuration.
+Goal: Educate readers about business, entrepreneurship, investing, startups, side hustles, financial freedom, and money mindset. Professional, trustworthy, minimal — but built to actually function (working nav, working search/filter, working forms with at least front-end validation).
+Theme
+Dark theme: black background (#0A0A0A), gold (#D4AF37) and white (#FFFFFF) accents, light gray (#CFCFCF) for secondary text
+Cards background: #161616
+Glassmorphism cards using backdrop-blur + semi-transparent backgrounds
+Clean sans-serif font (Inter or Poppins via Google Fonts CDN)
+Pages (all must be real, navigable HTML pages)
+Home
+Articles (with working search bar + category filter buttons using JS, no backend needed — filter visible cards by class/data-attribute)
+Categories
+About
+Contact (working contact form — front-end only, can show a "message sent" confirmation, no backend required)
+Newsletter signup section (embedded on homepage + footer)
+Homepage must include
+Hero with headline: "Learn Business. Build Wealth. Create Freedom." + short subtext + CTA button
+Featured article section
+Latest articles grid (use 6-9 placeholder articles with real Unsplash image URLs, not broken image links)
+Popular categories section (clickable, links to filtered articles page)
+Newsletter signup form
+Footer with social icons (use real SVG icons, not placeholder text) and copyright
+Categories: Business, Entrepreneurship, Startups, Investing, Money Mindset, Side Hustles, AI Tools, Passive Income, Productivity, Marketing
+Each article card must include: real placeholder image, category badge, title, short description, author name, date, reading time, "Read More" button linking to a real (even if simple) article page
+Functional features (must actually work, not just look like they work):
+Sticky navbar that stays fixed on scroll
+Back-to-top button that appears after scrolling and smooth-scrolls up
+Mobile hamburger menu that opens/closes
+Search bar that filters articles by title in real-time (JS)
+Category filter buttons that show/hide article cards (JS)
+Smooth scroll-triggered fade-in animations using IntersectionObserver
+Social share buttons (link to actual share URLs e.g. https://twitter.com/intent/tweet?url=...)
